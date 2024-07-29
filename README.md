@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+题目三：实现基于 JWT 的用户登录系统
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![登录](doc-img/login.png)
+![用户信息](doc-img/user-info.png)
 
-## Available Scripts
+使用方法：
+1. `json-server --watch db.json --port 4000`
+2. `npm start`
 
-In the project directory, you can run:
+要求：
+1. 使用 React、TypeScript 和 Redux 开发。
+2. 实现一个简单的用户登录系统，包括以下功能：
+    - 用户输入用户名和密码进行登录
+    - 登录后获取 JWT 并保存到 Redux 全局状态中
+    - 实现登录状态的页面跳转（例如，登录成功后跳转到用户信息页面）
+    - 实现注销功能，清除 JWT 并返回登录页面
+3. 使用 Redux 管理全局状态，定义 actions、reducers 和 store。
+4. 使用 useSelector 和 useDispatch 钩子来访问和修改全局状态。
+5. 界面应包括登录页面和用户信息页面：
+    - 登录页面：包含用户名和密码输入框，以及登录按钮
+    - 用户信息页面：显示登录的用户名和一个注销按钮
+6. 使用 CSS 美化界面，使其简洁、美观。
 
-### `npm start`
+附加要求：
+1. 组件化设计：将登录表单、用户信息等拆分成独立的组件。
+2. 使用 TypeScript 类型定义所有相关的 props 和 state。
+3. 在实现 JWT 处理时，请使用以下示例代码：
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+示例代码：
+```typescript
+// 登录请求示例
+const login = async (username: string, password: string) => {
+  const response = await fetch('https://example.com/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  });
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  if (!response.ok) {
+    throw new Error('登录失败');
+  }
 
-### `npm test`
+  const data = await response.json();
+  return data.token; // 假设返回的数据中包含 token
+};
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+提示：
+- 你可以使用 Redux Toolkit 简化 Redux 的配置。
+- 尽量使用函数组件和 React Hooks。
+- 使用 React Router 实现页面跳转。
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+提交内容：
+1. 项目完整的源代码。
+2. 详细的代码注释，解释你的思路和设计。
+3. 截图或 GIF，展示应用的实际运行效果。
